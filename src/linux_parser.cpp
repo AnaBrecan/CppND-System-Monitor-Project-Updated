@@ -272,23 +272,23 @@ string LinuxParser::User(int pid) {
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::UpTime(int pid) {
-  string line, pid_s, value, uptime_s;
-  pid_s = to_string(pid);
-  int i = 1;
+   string line, pid_s, value, uptime_s;
+   pid_s = to_string(pid);
+   int i = 1;
 
-  std::ifstream filestream(kProcDirectory + pid_s + kStatFilename);
+   std::ifstream filestream(kProcDirectory + pid_s + kStatFilename);
 
-  if(filestream.is_open()){
-    std::getline(filestream,line);
-    std::istringstream linestream(line);
-    while (i<=21){
-      linestream >> value;
-      i++;
-    }
-    linestream >> uptime_s;
+   if(filestream.is_open()){
+     std::getline(filestream,line);
+     std::istringstream linestream(line);
+     while (i<=21){
+       linestream >> value;
+       i++;
+     }
+     linestream >> uptime_s;
 
-    return std::stol(uptime_s);
-  }
+     return LinuxParser::UpTime() - std::stol(uptime_s)/sysconf(_SC_CLK_TCK);
+   }
 
-  return 0;
+   return 0;
 }
