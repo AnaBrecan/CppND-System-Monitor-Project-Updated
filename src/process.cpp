@@ -25,7 +25,6 @@ float Process::CpuUtilization() const {
   float seconds = uptime - (start_time/sysconf(_SC_CLK_TCK));
 
   return (total_time/sysconf(_SC_CLK_TCK))/seconds;
-  //return static_cast<float>(LinuxParser::ActiveJiffies(pid_));
 }
 
 // TODO: Return the command that generated this process
@@ -43,5 +42,5 @@ long int Process::UpTime() { return LinuxParser::UpTime(pid_); }
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const {
-   return (CpuUtilization() < a.CpuUtilization());
+   return (CpuUtilization() > a.CpuUtilization());
 }
