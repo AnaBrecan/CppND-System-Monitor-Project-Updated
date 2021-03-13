@@ -13,11 +13,34 @@ using std::string;
 // REMOVE: [[maybe_unused]] once you define the function
 string Format::ElapsedTime(long seconds) {
   long hh, mm, ss;
+  string h, m, s;
   string time;
+
   hh = floor(seconds/HOUR);
   ss = seconds - hh*HOUR;
   mm = floor(ss/MIN);
   ss = ss - mm*MIN;
-  time = std::to_string(hh) + ":" + std::to_string(mm) + ":" + std::to_string(ss);
-  return time;
+
+  if (hh < 10) {
+    h = "0" + std::to_string(hh);
+  }
+  else {
+    h = std::to_string(hh);
+  }
+
+  if (mm < 10) {
+    m = "0" + std::to_string(mm);
+  }
+  else{
+    m = std::to_string(mm);
+  }
+
+  if (ss < 10) {
+    s = "0" + std::to_string(ss);
+  }
+  else{
+    s = std::to_string(ss);
+  }
+  
+  return h + ":" + m + ":" + s;
 }
