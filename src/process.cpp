@@ -26,7 +26,15 @@ float Process::CpuUtilization() const {
 }
 
 // Return the command that generated this process
-string Process::Command() { return LinuxParser::Command(pid_); }
+string Process::Command() {
+  string command = LinuxParser::Command(pid_);
+  if (command.size() <= 40) {
+      return command;
+  }
+  else{
+    return command.substr(0,39) + "...";
+  }
+}
 
 // Return this process's memory utilization
 string Process::Ram() {
